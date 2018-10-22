@@ -58,13 +58,13 @@ func Mine(diff int, block *Block) {
 	for {
 		var hash = GenerateBlockHashValue(*block)
 		if strings.HasPrefix(hash, strings.Repeat("0", diff)) {
-			fmt.Println(hash)
-			fmt.Println(block.Nonce)
+			// fmt.Println(hash)
+			// fmt.Println(block.Nonce)
 			fmt.Println("挖矿成功")
 			block.HashCode = hash
 			return
 		} else {
-			fmt.Println(hash)
+			// fmt.Println(hash)
 			block.Nonce ++
 		}
 	}
