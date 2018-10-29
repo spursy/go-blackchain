@@ -28,6 +28,7 @@ func CreateTransaction(secret string, destination string, amount int64, txHash s
 	if err != nil {
 		return Transaction{}, err
 	}
+
 	addresspubkey, _ := btcutil.NewAddressPubKey(wif.PrivKey.PubKey().SerializeUncompressed(), &chaincfg.MainNetParams)
 	sourceTx := wire.NewMsgTx(wire.TxVersion)
 	sourceUtxoHash, _:= chainhash.NewHashFromStr(txHash)
@@ -51,6 +52,7 @@ func CreateTransaction(secret string, destination string, amount int64, txHash s
 	redeemTx.AddTxIn(redeemTxIn)
 	redeemTxOut := wire.NewTxOut(amount, destinationPKScript)
 	redeemTx.AddTxOut(redeemTxOut)
+	
 	sigScript, err := txscript.SignatureScript(redeemTx, 0, sourceTx.TxOut[0].PkScript, txscript.SigHashAll, wif.PrivKey, false)
 	if err != nil {
 		return Transaction{}, err
